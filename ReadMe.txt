@@ -39,3 +39,10 @@ the board. Both would be ideal but not always possible.
 
 I'm going to start by modeling the board which I'll start of with a 2d array. Mostly
 for future purposes.  It could just as easily be a single array. 
+
+The PopStarSolver project is just a basic windows console app I'm using for testing. The Solver project does the work.
+
+Right now, using the multi-threaded version of the solver it generates a little over 200k solutions a second. After a 
+few seconds you'll have a pretty good solution. However, I've never been able to complete an entire board to find the absolute *best*
+solution since there literallly billions (if not more depending on the board). I've come up with some ideas to make it faster but that
+comes at the cost of memory and I really don't have enough to support those solutions.
