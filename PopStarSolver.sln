@@ -1,0 +1,56 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25123.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PopStarSolver", "PopStarSolver\PopStarSolver.vcxproj", "{2F90DCD5-5FB0-48DB-AD75-33C8C602E86F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{60B16A52-97DF-4744-B232-AFAC9D6C34E4} = {60B16A52-97DF-4744-B232-AFAC9D6C34E4}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Solver", "Solver\Solver.vcxproj", "{60B16A52-97DF-4744-B232-AFAC9D6C34E4}"
+EndProject
+Global
+	GlobalSection(Performance) = preSolution
+		HasPerformanceSessions = true
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2F90DCD5-5FB0-48DB-AD75-33C8C602E86F}.Debug|x64.ActiveCfg = Debug|x64
+		{2F90DCD5-5FB0-48DB-AD75-33C8C602E86F}.Debug|x64.Build.0 = Debug|x64
+		{2F90DCD5-5FB0-48DB-AD75-33C8C602E86F}.Debug|x86.ActiveCfg = Debug|Win32
+		{2F90DCD5-5FB0-48DB-AD75-33C8C602E86F}.Debug|x86.Build.0 = Debug|Win32
+		{2F90DCD5-5FB0-48DB-AD75-33C8C602E86F}.Release|x64.ActiveCfg = Release|x64
+		{2F90DCD5-5FB0-48DB-AD75-33C8C602E86F}.Release|x64.Build.0 = Release|x64
+		{2F90DCD5-5FB0-48DB-AD75-33C8C602E86F}.Release|x86.ActiveCfg = Release|Win32
+		{2F90DCD5-5FB0-48DB-AD75-33C8C602E86F}.Release|x86.Build.0 = Release|Win32
+		{60B16A52-97DF-4744-B232-AFAC9D6C34E4}.Debug|x64.ActiveCfg = Debug|x64
+		{60B16A52-97DF-4744-B232-AFAC9D6C34E4}.Debug|x64.Build.0 = Debug|x64
+		{60B16A52-97DF-4744-B232-AFAC9D6C34E4}.Debug|x86.ActiveCfg = Debug|Win32
+		{60B16A52-97DF-4744-B232-AFAC9D6C34E4}.Debug|x86.Build.0 = Debug|Win32
+		{60B16A52-97DF-4744-B232-AFAC9D6C34E4}.Release|x64.ActiveCfg = Release|x64
+		{60B16A52-97DF-4744-B232-AFAC9D6C34E4}.Release|x64.Build.0 = Release|x64
+		{60B16A52-97DF-4744-B232-AFAC9D6C34E4}.Release|x86.ActiveCfg = Release|Win32
+		{60B16A52-97DF-4744-B232-AFAC9D6C34E4}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 3
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://vizipi.visualstudio.com/defaultcollection
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = PopStarSolver\\PopStarSolver.vcxproj
+		SccProjectName1 = PopStarSolver
+		SccLocalPath1 = PopStarSolver
+		SccProjectUniqueName2 = Solver\\Solver.vcxproj
+		SccProjectName2 = Solver
+		SccLocalPath2 = Solver
+	EndGlobalSection
+EndGlobal
