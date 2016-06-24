@@ -12,6 +12,7 @@ int main()
 	SolveRandomPuzzle();
 //	SolveTwifirPuzzle();
 //	SolveFourFerPuzzle();
+//	SolveSolidPuzzle();
 	std::cout << "done" << std::endl;
 	return 0;
 }
