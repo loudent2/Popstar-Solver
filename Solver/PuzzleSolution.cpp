@@ -38,59 +38,17 @@ namespace PopStarSolver
 	void 
 	PuzzleSolver::Solve(PopStarBoard board)
 	{
-		PuzzleSolution* Solution = new PuzzleSolution(board);
 		//create a queue of solutions with recomended pop locations
 		//create some worker threads that will dequeue and solve.
 		//finally we want to insert into the outputqueue
 
+//		PuzzleSolution* Solution = new PuzzleSolution(board);
 //		LinearSolver(Solution);
-/*		std::thread solving(&PuzzleSolver::LinearSolver, this, Solution);
-		std::thread processing(&PuzzleSolver::ProcessSolutions, this);
-		if(solving.joinable())
-			solving.join();
-		m_finished = true;
-		m_process.notify_one();
-		if (processing.joinable())
-			processing.join();
-		if (nullptr == m_highestPoints)
-			return;*/
-
+	
 		ASyncSolver(board);
 		
 	}
 
-/**FLAG	void PuzzleSolver::ThreadFunc()
-	{
-		while(workQueue.Size() > 0)
-		{
-			PuzzleSolution* solution = workQueue.Pop();
-			Position nextPop = solution->NextPop();
-			solution->CurrentPoints() += solution->Board().Pop(nextPop.m_x, nextPop.m_y);
-			solution->m_solutionPath.push_back(Position(solution->NextPop().m_x, solution->NextPop().m_y));
-
-			PieceMap matches;
-			solution->Board().GetPoppableItems(matches);
-			if (0 >= matches.size())
-			{
-				m_outputQueue.Push(solution);
-			}
-			else
-			{
-				//for each poppable on this board
-				for (auto pos : matches)
-				{
-					//create a solution object to evaluate
-					PuzzleSolution* newsolution = new PuzzleSolution(*solution);
-					newsolution->NextPop() = pos;
-					unsigned int level = newsolution->Level();
-					level += 1;
-					//add to the solution pool
-					workQueue.Push(newsolution);
-				}
-				delete solution; solution = nullptr;
-			}
-		}
-	}*/
 	
 	void
 	PuzzleSolver::ASyncSolver(PopStarBoard board)
@@ -117,16 +75,16 @@ namespace PopStarSolver
 				m_process.notify_one();
 			}
 
-			/**FLAG this doesn't work because it doesn't take into account
-			//different paths to here
 			//if we've already processed this board (and it's not finished)
-			//then skip
-			if (true == m_finishedBoards.Find(solution->Board().BitSet()))
+			//and the score is lower than when we got here then skip
+			unsigned int tempScore;
+			if (true == m_finishedBoards.Find(solution->Board().BitSet(), tempScore)
+				&&  tempScore >= solution->CurrentPoints())
 			{
 				delete solution; solution = nullptr;
 				return;
 			}		
-			m_finishedBoards.Insert(solution->Board().BitSet());*/
+			m_finishedBoards.Insert(solution->Board().BitSet(), solution->CurrentPoints());
 			
 			for (auto pos : matches)
 			{
@@ -139,7 +97,7 @@ namespace PopStarSolver
 			delete solution; solution = nullptr;
 		};
 		
-		Concurrency::ThreadPool<PuzzleSolution> pool(5, task);
+		Concurrency::ThreadPool<PuzzleSolution> pool(std::thread::hardware_concurrency(), task);
 		pool.Enqueue(Solution);
 		std::thread processing(&PuzzleSolver::ProcessSolutions, this);
 
@@ -154,28 +112,6 @@ namespace PopStarSolver
 			processing.join();
 		if (nullptr == m_highestPoints)
 			return; 
-
-
-		//get the first set of poppable matches
-	/*	PieceMap matches;
-		board.GetPoppableItems(matches);
-		if (0 >= matches.size())
-		{
-			return;
-		}
-		//for each poppable on this board
-		for (auto pos : matches)
-		{
-			//create a solution object to evaluate
-			PuzzleSolution* solution = new PuzzleSolution(board);
-			solution->NextPop() = pos;
-			solution->Level() = 1;
-			//add to the solution pool
-			workQueue.Push(solution);
-		}
-		CreateWorkerThreads();
-
-		std::for_each(threadPool.begin(), threadPool.end(), [&](std::thread& th) { th.join(); });*/ 
 	}
 
 	void 
@@ -210,6 +146,7 @@ namespace PopStarSolver
 
 	void PuzzleSolver::ProcessSolutions()
 	{
+		size_t numProcessed = 0;
 		std::unique_lock<std::mutex> lock(m_mutex);
 
 		while(true !=  m_finished
@@ -222,6 +159,10 @@ namespace PopStarSolver
 			}
 			else
 			{
+				//**FLAG Remove after evaluation
+				numProcessed++;
+				if (0 == numProcessed % 1000000) std::cout << numProcessed << " Processed. (" << m_finishedBoards.Size() << " in skip queue)" << std::endl;
+
 				PuzzleSolution* solution = m_outputQueue.Pop();
 				if (nullptr == solution)
 				{

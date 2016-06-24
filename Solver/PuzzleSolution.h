@@ -3,7 +3,7 @@
 #include "PopStarBoad.h" //for PopStarBoard et al.
 #include <vector>
 #include "ConcurrentQueue.h"
-#include <unordered_set>
+
 
 namespace PopStarSolver
 {
@@ -88,7 +88,8 @@ namespace PopStarSolver
 		std::condition_variable m_process;
 		bool m_finished = false;
 
-		ConcurrentUnorderd_Set<BoardBitSet> m_finishedBoards;
+//		ConcurrentUnorderd_Set<BoardBitSet> m_finishedBoards;
+		ConcurrentUnorderd_Map<BoardBitSet, unsigned int> m_finishedBoards;
 
 		//post process solutions to determine if they're better than what I have
 		void ProcessSolutions();
