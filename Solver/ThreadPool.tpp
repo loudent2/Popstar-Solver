@@ -23,8 +23,8 @@ namespace Concurrency
 		void operator()();		
 
 	protected:
-		TaskFunction m_taskfunc;
 		ThreadPool<T>& m_pool;
+		TaskFunction m_taskfunc;
 	};
 
 	
@@ -58,7 +58,7 @@ namespace Concurrency
 
 		std::mutex m_mutex;
 		std::condition_variable m_condition;
-		std::atomic<bool> m_bStop = false;
+		std::atomic<bool> m_bStop = {false};
 
 	};
 }

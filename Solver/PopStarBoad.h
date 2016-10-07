@@ -4,6 +4,8 @@
 #include <unordered_map>
 #include <map>
 #include <bitset>
+#include <algorithm>
+
 //**FLAG #include <hash>
 
 //the pop star board is a, generallyl 10x10  board comprising on of 4 colors
@@ -142,9 +144,9 @@ namespace PopStarSolver
 		BoardBitSet CreateBitSet()
 		{
 			m_bitSet.reset();
-			for (int x = 0; x < BoardWidth; x++)
+			for (unsigned int x = 0; x < BoardWidth; x++)
 			{
-				for (int y = 0; y < BoardHeight; y++)
+				for (unsigned int y = 0; y < BoardHeight; y++)
 				{
 					m_bitSet <<= 3;
 					m_bitSet |= static_cast<char>(m_board[x][y]);
@@ -158,7 +160,7 @@ namespace PopStarSolver
 			return (std::find(map.begin(), map.end(), Pos) != map.end());
 
 		}
-		inline  void AddPosition (PieceMap& map, Position& Pos)
+		inline  void AddPosition (PieceMap& map, Position Pos)
 		{
 			map.push_back(Pos);
 		}

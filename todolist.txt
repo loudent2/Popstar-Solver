@@ -1,0 +1,6 @@
+
+
+1) Do something about the dozens of forx/for y. e.g. create a function that
+takes a task as an argument and handles the iteration e.g. 
+Traverseboard(Boardwidth, BoardHeight, [](BoardPiece& P){
+p=Blue}) or something like that

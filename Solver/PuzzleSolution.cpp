@@ -1,4 +1,7 @@
+#ifdef _WINDOWS
 #include "stdafx.h"
+#endif
+
 #include "PuzzleSolution.h"
 #include <thread>
 #include "ThreadPool.h"
@@ -163,9 +166,10 @@ namespace PopStarSolver
 				numProcessed++;
 				if (0 == numProcessed % 1000000) std::cout << numProcessed << " Processed. (" << m_finishedBoards.Size() << " in skip queue)" << std::endl;
 
-				PuzzleSolution* solution = m_outputQueue.Pop();
+				PuzzleSolution* solution = nullptr;
+				m_outputQueue.Pop(solution);
 				if (nullptr == solution)
-				{
+				{					
 					continue;
 				}
 				if (nullptr == m_highestPoints)

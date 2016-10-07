@@ -1,7 +1,10 @@
 // Solver.cpp : Defines the exported functions for the DLL application.
 //
 
+#ifdef _WINDOWS
 #include "stdafx.h"
+#endif
+
 #include "Solver.h"
 #include "PuzzleSolution.h"
 #include <memory>
@@ -9,9 +12,9 @@
 void
 CreateRandomPopStarBoard(PopStarSolver::BoardPiece board[PopStarSolver::BoardWidth][PopStarSolver::BoardHeight])
 {
-	for (int x = 0; x < PopStarSolver::BoardWidth; x++)
+	for (unsigned int x = 0; x < PopStarSolver::BoardWidth; x++)
 	{
-		for (int y = 0; y < PopStarSolver::BoardHeight; y++)
+		for (unsigned int y = 0; y < PopStarSolver::BoardHeight; y++)
 		{
 			board[x][y] = (PopStarSolver::BoardPiece)(rand() % (int)PopStarSolver::BoardPiece::Undefined);
 		}
@@ -21,10 +24,10 @@ CreateRandomPopStarBoard(PopStarSolver::BoardPiece board[PopStarSolver::BoardWid
 void
 CreateColumnPopStarBoard(PopStarSolver::BoardPiece board[PopStarSolver::BoardWidth][PopStarSolver::BoardHeight])
 {
-	for (int x = 0; x < PopStarSolver::BoardWidth; x++)
+	for (unsigned int x = 0; x < PopStarSolver::BoardWidth; x++)
 	{
 		PopStarSolver::BoardPiece color = (PopStarSolver::BoardPiece) (x % (int)PopStarSolver::BoardPiece::Undefined);
-		for (int y = 0; y < PopStarSolver::BoardHeight; y++)
+		for (unsigned int y = 0; y < PopStarSolver::BoardHeight; y++)
 		{
 			board[x][y] = color;
 		}
@@ -35,17 +38,17 @@ CreateColumnPopStarBoard(PopStarSolver::BoardPiece board[PopStarSolver::BoardWid
 void
 CreateTwoforPopStarBoard(PopStarSolver::BoardPiece board[PopStarSolver::BoardWidth][PopStarSolver::BoardHeight])
 {
-	for (int x = 0; x < 5; x++)
+	for (unsigned int x = 0; x < 5; x++)
 	{
-		for (int y = 0; y < PopStarSolver::BoardHeight; y++)
+		for (unsigned int y = 0; y < PopStarSolver::BoardHeight; y++)
 		{
 			board[x][y] = PopStarSolver::BoardPiece::Red;
 		}
 
 	}
-	for (int x = 5; x < PopStarSolver::BoardHeight; x++)
+	for (unsigned int x = 5; x < PopStarSolver::BoardHeight; x++)
 	{
-		for (int y = 0; y < PopStarSolver::BoardHeight; y++)
+		for (unsigned int y = 0; y < PopStarSolver::BoardHeight; y++)
 		{
 			board[x][y] = PopStarSolver::BoardPiece::Blue;
 		}
@@ -56,9 +59,9 @@ void
 CreateFourFerPopStarBoard(PopStarSolver::BoardPiece board[PopStarSolver::BoardWidth][PopStarSolver::BoardHeight])
 {
 	PopStarSolver::BoardPiece color = PopStarSolver::BoardPiece::Red;
-	for (int x = 0; x < PopStarSolver::BoardWidth; x++)
+	for (unsigned int x = 0; x < PopStarSolver::BoardWidth; x++)
 	{
-		for (int y = 0; y < PopStarSolver::BoardHeight; y++)
+		for (unsigned int y = 0; y < PopStarSolver::BoardHeight; y++)
 		{
 			board[x][y] = color;
 		}

@@ -2,8 +2,9 @@
 
 #include <thread>
 #include <mutex>
+#include <condition_variable>
 #include <queue>
-#include  <unordered_set>
+#include <unordered_set>
 #include <unordered_map>
 namespace PopStarSolver
 {
@@ -16,12 +17,11 @@ namespace PopStarSolver
 			std::lock_guard<std::mutex> lock(m_mutex);
 			m_queue.push(item);
 		}
-		T& Pop()
+		void Pop(T& outVal)
 		{
 			std::lock_guard<std::mutex> lock(m_mutex);
-			T retVal = m_queue.front();
+			outVal  = m_queue.front();
 			m_queue.pop();
-			return retVal;
 		}
 		size_t Size()
 		{
@@ -77,7 +77,7 @@ namespace PopStarSolver
 		{
 			{
 				std::lock_guard<std::mutex> lock(m_mutex);
-				std::unordered_map<Key, T>::iterator it = m_queue.find(key);
+				auto it = m_queue.find(key);
 				if (m_queue.end() != it)
 				{
 					item = it->second;

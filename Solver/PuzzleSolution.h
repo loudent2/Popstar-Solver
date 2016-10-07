@@ -76,7 +76,7 @@ namespace PopStarSolver
 
 		//async solver. this will create a couple of
 		//worker threads to solve the problems
-		//as well as a sort of finalizer threadsd
+		//as well as a sort of finalizer thread
 		//that goes through the solutions to 
 		//figure out the best ones.
 		void ASyncSolver(PopStarBoard board);

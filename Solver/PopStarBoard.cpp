@@ -1,8 +1,12 @@
+#ifdef _WINDOWS
 #include "stdafx.h"
+#endif
+
 #include "PopStarBoad.h"
 #include <algorithm>
 #include <queue>
 #include <memory>
+#include <cstring>
 #include <assert.h>
 
 //implementation of the popstar board class
@@ -17,19 +21,19 @@ namespace PopStarSolver
 	
 	PopStarBoard::PopStarBoard(const PopStarBoard& other)
 	{
-		memcpy(m_board, other.m_board, sizeof(BoardPiece) * BoardWidth * BoardHeight);
+		std::memcpy(m_board, other.m_board, sizeof(BoardPiece) * BoardWidth * BoardHeight);
 		m_bitSet = other.m_bitSet;
 
 	}
 	PopStarBoard::PopStarBoard(PopStarBoard&& other)
 	{
-		memcpy(m_board, other.m_board, sizeof(BoardPiece) * BoardWidth * BoardHeight);
+		std::memcpy(m_board, other.m_board, sizeof(BoardPiece) * BoardWidth * BoardHeight);
 		m_bitSet = other.m_bitSet;
 	}
 
 	PopStarBoard::PopStarBoard(BoardPiece board[BoardHeight][BoardWidth])
 	{
-		memcpy(m_board, board, sizeof(BoardPiece) * BoardWidth * BoardHeight);
+		std::memcpy(m_board, board, sizeof(BoardPiece) * BoardWidth * BoardHeight);
 		CreateBitSet();
 	}
 
@@ -38,7 +42,7 @@ namespace PopStarSolver
 	{
 		if (this != &other)
 		{
-			memcpy(m_board, other.m_board, sizeof(BoardPiece) * BoardWidth * BoardHeight);
+			std::memcpy(m_board, other.m_board, sizeof(BoardPiece) * BoardWidth * BoardHeight);
 			m_bitSet = other.m_bitSet;
 		}
 		return *this;
@@ -70,9 +74,9 @@ namespace PopStarSolver
 	void PopStarBoard::ClearBoard()
 	{
 		//**flag perhaps it would be faster to just 0 out everything
-		for (int i = 0; i < BoardWidth; i++)
+		for (unsigned int i = 0; i < BoardWidth; i++)
 		{
-			for (int j = 0; j < BoardHeight; j++)
+			for (unsigned int j = 0; j < BoardHeight; j++)
 			{
 				m_board[i][j] = BoardPiece::Undefined;
 			}
@@ -116,9 +120,9 @@ namespace PopStarSolver
 	PopStarBoard::GetPoppableItems(PieceMap& poppables)
 	{
 		PieceMap matches;
-		for (int x = 0; x < BoardWidth; x++)
+		for (unsigned int x = 0; x < BoardWidth; x++)
 		{
-			for (int y = 0; y < BoardHeight; y++)
+			for (unsigned int y = 0; y < BoardHeight; y++)
 			{
 				//if we haven't already matched this one
 				if (FindPosition(matches, Position(x, y)))
@@ -141,9 +145,9 @@ namespace PopStarSolver
 	PopStarBoard::GetRemainingPieces()
 	{
 		size_t count = 0;
-		for (int x = 0; x < BoardWidth; x++)
+		for (unsigned int x = 0; x < BoardWidth; x++)
 		{
-			for (int y = 0; y < BoardHeight; y++)
+			for (unsigned int y = 0; y < BoardHeight; y++)
 			{
 				if (m_board[x][y] != BoardPiece::Undefined)
 				{
@@ -182,9 +186,9 @@ namespace PopStarSolver
 	PopStarBoard::CollapseBoard()
 	{
 		//first collapse top to bottom
-		for (int i = 0; i < BoardWidth; i++)
+		for (unsigned int i = 0; i < BoardWidth; i++)
 		{
-			for (int j = 1; j < BoardHeight; j++)
+			for (unsigned int j = 1; j < BoardHeight; j++)
 			{
 				if (BoardPiece::Undefined != m_board[i][j])
 				{
@@ -200,7 +204,7 @@ namespace PopStarSolver
 		}
 
 		//now collapse left to right
-		for (int x = 1; x < BoardWidth; x++)
+		for (unsigned int x = 1; x < BoardWidth; x++)
 		{
 			if (EmptyColumn(x - 1) && !EmptyColumn(x))
 			{
@@ -213,7 +217,7 @@ namespace PopStarSolver
 			}
 		}
 	}
-	//returns the number of matching the number of connectors
+	//returns the number of mmatching connected pieces as well as a collection of those matches
 	unsigned int 
 	PopStarBoard::MatchingConnectors(unsigned int x, unsigned int y, /*out*/PieceMap& matches)
 	{
